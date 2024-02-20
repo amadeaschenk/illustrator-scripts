@@ -1,0 +1,34 @@
+// Adobe Illustrator Script
+
+// Check if there is an active document
+if (app.documents.length > 0) {
+    var doc = app.activeDocument;
+    
+    // Check if there is a selection
+    if (doc.selection.length > 0) {
+        var selectedObject = doc.selection[0];
+        
+        // Check if the selected object is a path item (shape)
+        if (selectedObject.typename === "PathItem") {
+            
+            // Duplicate the selected object
+            var duplicate = selectedObject.duplicate();
+            
+            // Scale the duplicate to 1% of the original size
+            duplicate.resize(1, 1);
+            
+            // Apply the fill color to the duplicate
+            duplicate.fillColor = selectedObject.fillColor;
+            
+            // Release the duplicate (to separate it from the original)
+            duplicate = duplicate.release();
+            
+        } else {
+            alert("Please select a shape (path item) before running this script.");
+        }
+    } else {
+        alert("Please select a shape (path item) before running this script.");
+    }
+} else {
+    alert("Open a document before running this script.");
+}
